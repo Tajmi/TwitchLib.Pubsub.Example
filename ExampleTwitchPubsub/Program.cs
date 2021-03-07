@@ -72,7 +72,6 @@ namespace ExampleTwitchPubsub
             //Set up listeners
             ListenToBits(channelId);
             ListenToChatModeratorActions(channelId, channelId);
-            ListenToCommerce(channelId);
             ListenToFollows(channelId);
             ListenToLeaderboards(channelId);
             ListenToPredictions(channelId);
@@ -111,15 +110,9 @@ namespace ExampleTwitchPubsub
             PubSub.OnStreamUp += PubSub_OnStreamUp;
             PubSub.OnStreamDown += PubSub_OnStreamDown;
             PubSub.OnViewCount += PubSub_OnViewCount;
-            PubSub.OnCommercial += PubSub_OnCommercial;
+            
             PubSub.ListenToVideoPlayback(channelId);
-        }
-
-        [Obsolete]
-        private void PubSub_OnCommercial(object sender, OnCommercialArgs e)
-        {
-            _logger.Information($"A commercial has started for {e.Length} seconds");
-        }
+        }        
 
         private void PubSub_OnViewCount(object sender, OnViewCountArgs e)
         {
@@ -460,7 +453,7 @@ namespace ExampleTwitchPubsub
         {
             if (!e.Successful)
             {
-                _logger.Error($"Failed to listen! Response{e.Response}");
+                _logger.Error($"Failed to listen! Response succesful:{e.Successful} +Error: + {e.Response.Error}");
             }
         }
 
